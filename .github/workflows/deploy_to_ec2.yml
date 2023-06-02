@@ -21,7 +21,7 @@ jobs:
                   ssh-keyscan my-sandbox-server.charles.red >> /home/runner/.ssh/known_hosts
                   # DOKKU_SSH_KEY is the name of the repository secret
                   echo "${{ secrets.SANDBOX_EC2_SSH_KEY }}" > my-server.pem
-                  chmod 600 /home/runner/.ssh/github_actions
+                  chmod 600 my-server.pem
                   ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
                   ssh-add /home/runner/.ssh/github_actions
 
