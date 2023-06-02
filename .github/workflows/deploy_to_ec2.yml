@@ -1,0 +1,34 @@
+name: deploy_image_to_ec2
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v1.4.2
+              with:
+                  node-version: 12.x
+
+            - name: Add SSH key
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  mkdir -p /home/runner/.ssh
+                  # Replace example.com with the hostname of the machine
+                  # you're SSH-ing into
+                  ssh-keyscan charles.red >> /home/runner/.ssh/known_hosts
+                  # DOKKU_SSH_KEY is the name of the repository secret
+                  echo "${{ secrets.SANDBOX_EC2_SSH_KEY }}" > /home/runner/.ssh/github_actions
+                  chmod 600 /home/runner/.ssh/github_actions
+                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+                  ssh-add /home/runner/.ssh/github_actions
+
+            - name: Figure out location
+              run: hostname
