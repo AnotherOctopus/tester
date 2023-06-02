@@ -22,8 +22,6 @@ jobs:
                   # DOKKU_SSH_KEY is the name of the repository secret
                   echo "${{ secrets.SANDBOX_EC2_SSH_KEY }}" > my-server.pem
                   chmod 600 my-server.pem
-                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
-                  ssh-add /home/runner/.ssh/github_actions
 
             - name: Figure out location
               run: ssh -i my-server.pem ec2-user@my-sandbox-server.charles.red "hostname"
