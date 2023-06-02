@@ -25,5 +25,4 @@ jobs:
 
             - name: Figure out location
               run: ssh -i my-server.pem ec2-user@my-sandbox-server.charles.red \
-                        "sudo docker kill runner && sudo docker rm runner &&\
-                         sudo docker run --name=runner -d -p 80:5000 server"
+                        "sudo docker kill runner && sudo docker rm runner && sudo docker run --name=runner -d -p 80:5000 server"
