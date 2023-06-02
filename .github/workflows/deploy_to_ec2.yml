@@ -26,4 +26,4 @@ jobs:
                   ssh-add /home/runner/.ssh/github_actions
 
             - name: Figure out location
-              run: ssh ec2-user@13.52.186.186 "hostname"
+              run: ssh -i /home/runner/.ssh/github_actions ec2-user@13.52.186.186 "hostname"
